@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexer
+  labels:
+    service: indexer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: indexer
+  template:
+    metadata:
+      labels:
+        service: indexer
+    spec:
+      containers:
+      - name: indexer
+        image: gcr.io/YOUR_PROJECT_NAME/indexer:latest
+        env:
+          - name: LOGSTASH_HOST
+            value: "127.0.0.1"
+          - name: LOGSTASH_PORT
+            value: "5959"
+          - name: PROJECT_NAME
+            value: "YOUR_PROJECT_NAME"
+          - name: SUBSCRIPTION_NAME
+            value: "YOUR_SUBSCRIPTION_NAME"
